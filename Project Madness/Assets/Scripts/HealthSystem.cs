@@ -7,11 +7,17 @@ public class HealthSystem : MonoBehaviour
     public float health = 100;
     public float inputDamageMultiplier = 1; // множитель входящего урона
 
-    public void TakeDamage(int dmg)
+    public bool TakeDamage(float dmg)
 	{
         health -= dmg * inputDamageMultiplier; // расчет входящего урона
 
-        if (health <= 0) Die(); // скрипт смерти
+        if (health <= 0)
+        {
+            Die(); // скрипт смерти
+            return true;
+        }
+
+        return false;
 	}
 
     void Die()
