@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 519420031}
-  speed: 10
+  speed: 6
   rb: {fileID: 822014599}
 --- !u!50 &822014599
 Rigidbody2D:
