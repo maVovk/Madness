@@ -7,8 +7,10 @@ public class MovementScript : MonoBehaviour
     public Camera mainCamera;
     public float speed = 10f; // скорость нашего персонажа
     public Rigidbody2D rb; // ригидбоди, который отвечает за перемещение игрока
+    //public GameObject playerBody; // спрайт на герое
     Vector2 movement; // вектор направления движения
     Vector2 dash; // вектор направления рывка
+    float angle; // угол поворота героя
 
     void Update()
     {
@@ -22,17 +24,23 @@ public class MovementScript : MonoBehaviour
         dash = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         dash.x -= rb.position.x;
         dash.y -= rb.position.y;
+
+        angle = Vector2.Angle(new Vector2(1, 1), movement);
     }
 
     void FixedUpdate()
     {
         // движение игрока
-        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * (speed + Mathf.Cos(Time.time * 5) / 2) * Time.fixedDeltaTime);
 
         // рывок игрока
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             rb.MovePosition(new Vector2(rb.position.x + dash.x * 0.1f, rb.position.y + dash.y * 0.1f));
         }
+
+        //playerBody.transform.rotation = Quaternion.Euler(angle.x, angle.y, 0);
+        //playerBody.transform.position = rb.position;
+        //здесь ещё нужно сменить анимацию, но я не знаю как это делается
     }
 }
