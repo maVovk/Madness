@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3394650160549115953}
   - component: {fileID: 3394650160549115954}
-  - component: {fileID: 3394650160549115955}
   - component: {fileID: 3394650160549115964}
   - component: {fileID: 3394650160549115952}
   - component: {fileID: 3394650160549115959}
+  - component: {fileID: 6676371166732865075}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Enemy
@@ -86,27 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3394650160549115955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3394650160549115965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a211649701ecc0940a869c16e9f8643b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  speed: 10
-  damage: 20
-  defence: 0.5
-  rb: {fileID: 3394650160549115964}
-  enemy: {fileID: 3394650160549115965}
-  player: {fileID: 0}
-  hp: 100
-  strenght: 0.5
 --- !u!50 &3394650160549115964
 Rigidbody2D:
   serializedVersion: 4
@@ -127,7 +106,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 6
 --- !u!114 &3394650160549115952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,3 +147,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6676371166732865075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3394650160549115965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a211649701ecc0940a869c16e9f8643b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
+  speed: 4
+  damage: 20
+  defence: 0.5
+  enemy: {fileID: 3394650160549115965}
+  player: {fileID: 5451581918547640300, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
+  hp: 100
+  strength: 0.5
+  dist: 4
+  HomeRoom: {fileID: 0}
