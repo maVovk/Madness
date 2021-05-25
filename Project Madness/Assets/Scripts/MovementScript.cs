@@ -42,7 +42,6 @@ public class MovementScript : MonoBehaviour
         dash = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         dash.x -= rb.position.x;
         dash.y -= rb.position.y;
-
     }
 
     void FixedUpdate()
@@ -56,8 +55,6 @@ public class MovementScript : MonoBehaviour
             rb.MovePosition(new Vector2(rb.position.x + dash.x * dashMultiplier, rb.position.y + dash.y * dashMultiplier));
         }
 
-        //if (movement != new Vector2(0, 0))
-        //    playerBody.transform.forward = Vector3.Normalize(new Vector3(movement.x, 0f, movement.y));
         playerBody.transform.position = rb.position;
 		//здесь ещё нужно сменить анимацию, но я не знаю как это делается
 
