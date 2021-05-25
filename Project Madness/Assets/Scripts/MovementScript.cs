@@ -11,11 +11,13 @@ public class MovementScript : MonoBehaviour
     Vector2 dash; // вектор направления рывка
     public float dashMultiplier = 0.2f; // множитель расстояния рывка
     public float angle; // угол поворота героя
+    public AudioSource Step; // для воспроизведения звуков шагов
 
     public GameObject playerBody; // спрайт на герое
     public int gunAct = 1;
     public GameObject[] gunObjects;
     private HashSet<GameObject> gunObj = new HashSet<GameObject>();
+    public AudioClip[] Steps;
 
     void Start()
     {
@@ -41,6 +43,15 @@ public class MovementScript : MonoBehaviour
     {
         // движение игрока
         rb.MovePosition(rb.position + movement * (speed + Mathf.Cos(Time.time * 5) / 2f) * Time.fixedDeltaTime);
+        if (movement.x != 0 || movement.y != 0)
+        {
+            if (!Step.isPlaying) // если звук шага уже есть, новый не играется
+            {
+                Step.clip = Steps[Random.Range(0, 7)]; // берем рандомный звук шага
+                Step.Play();
+            }
+        }
+        else Step.Stop();
 
         // рывок игрока
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -55,6 +66,7 @@ public class MovementScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+
             gunAct = 1;
         }
 
