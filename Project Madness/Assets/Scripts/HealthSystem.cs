@@ -9,8 +9,8 @@ public class HealthSystem : MonoBehaviour
 
     /* ПАРАМЕТРЫ УСИЛЕНИЯ И ОСЛАБЛЕНИЯ */
     float extraHp = 20; // дополнительное количество здоровья при бусте
-    float boostTime = 5.0f; // время усиления
-    float debuffTime = 10.0f; // время отходняка
+    float boostTime = 1.75f; // время усиления(в минутах)
+    float debuffTime = 3f; // время отходняка(в минутах)
 
     float normalInputMultiplier = 1f; // стандартный множитель входящего урона
     float boostedInputMultiplier = 0.6f; // множитель входяшего урона при усилении
@@ -21,7 +21,7 @@ public class HealthSystem : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.Alpha4))
 		{
-            StartCoroutine(Boost(boostTime, debuffTime));
+            StartCoroutine(Boost(boostTime * 60, debuffTime * 60));
 		}
 	}
 
