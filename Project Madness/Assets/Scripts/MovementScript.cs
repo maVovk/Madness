@@ -24,6 +24,8 @@ public class MovementScript : MonoBehaviour
     public int gunAct = 0; // текущее оружие
     public GameObject[] gunObjects; // массив оружий
     //private HashSet<GameObject> gunObj = new HashSet<GameObject>();
+    public AudioSource step;
+    public AudioClip[] steps;
 
     void Start()
     {
@@ -49,6 +51,15 @@ public class MovementScript : MonoBehaviour
     {
         // движение игрока
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+        if(movement.x != 0 || movement.y != 0)
+        {
+            if (!step.isPlaying)
+            {
+                step.clip = steps[Random.Range(0, 7)];
+                step.Play();
+            }
+        }
+        else step.Stop();
 
         // рывок игрока
         if (Input.GetKeyDown(KeyCode.LeftShift))
