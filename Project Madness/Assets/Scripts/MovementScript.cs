@@ -5,17 +5,25 @@ using UnityEngine;
 public class MovementScript : MonoBehaviour
 {
     public Camera mainCamera;
-    public float speed = 10f; // скорость нашего персонажа
+    
+    public float speed = 6f; // скорость нашего персонажа
+
+    public float normalSpeed = 6f; // обычная скорость
+    public float boostedSpeed = 7f; // скорость при бусте
+    public float slowedSpeed = 3.5f; // скорость при дебаффе
+
     public Rigidbody2D rb; // ригидбоди, который отвечает за перемещение игрока
+    
     Vector2 movement; // вектор направления движения
     Vector2 dash; // вектор направления рывка
+    
     public float dashMultiplier = 0.2f; // множитель расстояния рывка
     public float angle; // угол поворота героя
 
     public GameObject playerBody; // спрайт на герое
-    public int gunAct = 1;
-    public GameObject[] gunObjects;
-    private HashSet<GameObject> gunObj = new HashSet<GameObject>();
+    public int gunAct = 0; // текущее оружие
+    public GameObject[] gunObjects; // массив оружий
+    //private HashSet<GameObject> gunObj = new HashSet<GameObject>();
 
     void Start()
     {
@@ -40,7 +48,7 @@ public class MovementScript : MonoBehaviour
     void FixedUpdate()
     {
         // движение игрока
-        rb.MovePosition(rb.position + movement * (speed + Mathf.Cos(Time.time * 5) / 2f) * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
 
         // рывок игрока
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -51,16 +59,21 @@ public class MovementScript : MonoBehaviour
         //if (movement != new Vector2(0, 0))
         //    playerBody.transform.forward = Vector3.Normalize(new Vector3(movement.x, 0f, movement.y));
         playerBody.transform.position = rb.position;
-        //здесь ещё нужно сменить анимацию, но я не знаю как это делается
+		//здесь ещё нужно сменить анимацию, но я не знаю как это делается
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            gunAct = 1;
-        }
+        // смена оружия
+		if (Input.GetKeyDown(KeyCode.Alpha1))
+		{
+            gunAct = 0;
+		}
 
-        if (gunAct == 1)
-        {
-            gunObjects[0].transform.position = new Vector3(rb.transform.position.x + 0.25f, rb.transform.position.y + 0.2f, rb.transform.position.z);
-        }
+        // передвижение оружия вместе с игроком
+        MoveWeapon(gunAct);
+    }
+
+    void MoveWeapon(int index)
+	{
+        //Debug.Log(index);
+        gunObjects[index].transform.position = new Vector3(rb.transform.position.x + 0.25f, rb.transform.position.y + 0.2f, rb.transform.position.z);
     }
 }

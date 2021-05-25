@@ -154,6 +154,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0167465, y: 1.0137634}
   m_EdgeRadius: 0
+--- !u!114 &518593324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518593322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d67629975a0fc1c4381d768cfb0d1e19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  inputDamageMultiplier: 1
 --- !u!4 &518593326 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5451581918547640300, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
@@ -318,6 +332,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5451581918547640302, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
+      propertyPath: gunAct
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5451581918547640302, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 519420031}
@@ -341,7 +359,8 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7197404256102230382, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
 --- !u!1001 &685963378
 PrefabInstance:
@@ -350,6 +369,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 459089202217071906, guid: 5ad291d41f2f78b49a82eefcaf7a50da, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 969565113463237402, guid: 5ad291d41f2f78b49a82eefcaf7a50da, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -423,7 +446,15 @@ PrefabInstance:
       value: Room1
       objectReference: {fileID: 0}
     - target: {fileID: 3175002611667588964, guid: 5ad291d41f2f78b49a82eefcaf7a50da, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175002611667588964, guid: 5ad291d41f2f78b49a82eefcaf7a50da, type: 3}
       propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3421969356536206004, guid: 5ad291d41f2f78b49a82eefcaf7a50da, type: 3}
+      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3539620859306488413, guid: 5ad291d41f2f78b49a82eefcaf7a50da, type: 3}
@@ -500,6 +531,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8749722845652643224, guid: 5ad291d41f2f78b49a82eefcaf7a50da, type: 3}
       propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9202419920174786037, guid: 5ad291d41f2f78b49a82eefcaf7a50da, type: 3}
+      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

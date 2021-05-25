@@ -15,24 +15,24 @@ public class GunScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log(other.gameObject.tag);
-        if ((other.gameObject != null) && (other.gameObject.tag != "Player"))
+        if ((other.gameObject != null) && (other.gameObject.tag == "Enemy"))
             afBodies.Add(other.gameObject);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if ((other.gameObject != null) && (other.gameObject.tag != "Player"))
+        if ((other.gameObject != null) && (other.gameObject.tag == "Enemy"))
             afBodies.Remove(other.gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player.GetComponent<MovementScript>().gunAct == 1)
+        if (player.GetComponent<MovementScript>().gunAct == 0)
         {
             if (Input.GetMouseButtonDown(0))
             {
+                //Debug.Log(afBodies.Count);
                 foreach (GameObject go in afBodies)
                 {
                     if (!go.GetComponent<HealthSystem>().TakeDamage(damage))
