@@ -31,7 +31,7 @@ public class HealthSystem : MonoBehaviour
 
         if (health <= 0)
         {
-            Die(); // скрипт смерти
+            Die();
             return true;
         }
 
