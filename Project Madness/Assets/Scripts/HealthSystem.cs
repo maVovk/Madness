@@ -5,9 +5,27 @@ using UnityEngine;
 public class HealthSystem : MonoBehaviour
 {
     public float health = 100;
-    public float inputDamageMultiplier = 1; // множитель вход€щего урона
+    public float inputDamageMultiplier = 1; // текущий множитель вход€щего урона
 
-    public bool TakeDamage(float dmg)
+    /* ѕј–јћ≈“–џ ”—»Ћ≈Ќ»я » ќ—ЋјЅЋ≈Ќ»я */
+    float extraHp = 20; // дополнительное количество здоровь€ при бусте
+    float boostTime = 1.75f; // врем€ усилени€(в минутах)
+    float debuffTime = 3f; // врем€ отходн€ка(в минутах)
+
+    float normalInputMultiplier = 1f; // стандартный множитель вход€щего урона
+    float boostedInputMultiplier = 0.6f; // множитель вход€шего урона при усилении
+    float debuffedInputMultiplier = 1.2f; // множитель вход€шего урона при ослаблении
+
+
+    private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Alpha4))
+		{
+            StartCoroutine(Boost(boostTime * 60, debuffTime * 60));
+		}
+	}
+
+	public bool TakeDamage(float dmg)
 	{
         health -= dmg * inputDamageMultiplier; // расчет вход€щего урона
 
@@ -19,6 +37,25 @@ public class HealthSystem : MonoBehaviour
 
         return false;
 	}
+
+    IEnumerator Boost(float boost, float debuff)
+	{
+        MovementScript ms = gameObject.GetComponent<MovementScript>();
+
+        inputDamageMultiplier = boostedInputMultiplier;
+        health += extraHp;
+        ms.speed = ms.boostedSpeed;
+
+        yield return new WaitForSeconds(boost);
+
+        inputDamageMultiplier = debuffedInputMultiplier;
+        ms.speed = ms.slowedSpeed;
+
+        yield return new WaitForSeconds(debuff);
+
+        inputDamageMultiplier = normalInputMultiplier;
+        ms.speed = ms.normalSpeed;
+    }
 
     void Die()
 	{

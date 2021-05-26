@@ -5,19 +5,36 @@ using UnityEngine;
 public class MovementScript : MonoBehaviour
 {
     public Camera mainCamera;
-    public float speed = 10f; // скорость нашего персонажа
+    
+    public float speed = 6f; // скорость нашего персонажа
+
+    public float normalSpeed = 6f; // обычная скорость
+    public float boostedSpeed = 7f; // скорость при бусте
+    public float slowedSpeed = 3.5f; // скорость при дебаффе
+
     public Rigidbody2D rb; // ригидбоди, который отвечает за перемещение игрока
-    Vector2 movement; // вектор направления движения
-    Vector2 dash; // вектор направления рывка
-    public float dashMultiplier = 0.2f; // множитель расстояния рывка
+    
+    Vector3 movement; // вектор направления движения
+    bool isDashCooldown = false;
+    float dashCooldown = 5f; // время отката рывка
+
+    public float dashMultiplier = 100f; // множитель расстояния рывка
     public float angle; // угол поворота героя
     public AudioSource Step; // для воспроизведения звуков шагов
 
     public GameObject playerBody; // спрайт на герое
+<<<<<<< HEAD
     public int gunAct = 1;
     public GameObject[] gunObjects;
     private HashSet<GameObject> gunObj = new HashSet<GameObject>();
     public AudioClip[] Steps;
+=======
+    public int gunAct = 0; // текущее оружие
+    public GameObject[] gunObjects; // массив оружий
+    //private HashSet<GameObject> gunObj = new HashSet<GameObject>();
+    public AudioSource step;
+    public AudioClip[] steps;
+>>>>>>> remotes/origin/dev
 
     void Start()
     {
@@ -28,20 +45,30 @@ public class MovementScript : MonoBehaviour
     {
         // управление на WASD и стрелки
         // определяем вектор, на который будем перемещаться
-        movement.x = Input.GetAxis("Horizontal");
-        movement.y = Input.GetAxis("Vertical");
+        float x = 0f, y = 0f;
+		if (Input.GetAxis("Horizontal") > 0)
+		{
+            x = 1f;
+		} else if(Input.GetAxis("Horizontal") < 0)
+		{
+            x = -1f;
+		}
 
-        // рывок делается по направлению мыши
-        // определяем вектор, на который будем делать рывок
-        dash = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        dash.x -= rb.position.x;
-        dash.y -= rb.position.y;
+		if (Input.GetAxis("Vertical") > 0)
+		{
+            y = 1f;
+		} else if(Input.GetAxis("Vertical") < 0)
+		{
+            y = -1f;
+		}
 
+        movement = new Vector3(x, y).normalized;
     }
 
     void FixedUpdate()
     {
         // движение игрока
+<<<<<<< HEAD
         rb.MovePosition(rb.position + movement * (speed + Mathf.Cos(Time.time * 5) / 2f) * Time.fixedDeltaTime);
         if (movement.x != 0 || movement.y != 0)
         {
@@ -52,27 +79,56 @@ public class MovementScript : MonoBehaviour
             }
         }
         else Step.Stop();
+=======
+        //rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+        rb.velocity = movement * speed;
+>>>>>>> remotes/origin/dev
+
+        if(movement.x != 0 || movement.y != 0)
+        {
+            if (!step.isPlaying)
+            {
+                step.clip = steps[Random.Range(0, 7)];
+                step.Play();
+            }
+        }
+        else step.Stop();
 
         // рывок игрока
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashCooldown)
         {
-            rb.MovePosition(new Vector2(rb.position.x + dash.x * dashMultiplier, rb.position.y + dash.y * dashMultiplier));
-        }
-
-        //if (movement != new Vector2(0, 0))
-        //    playerBody.transform.forward = Vector3.Normalize(new Vector3(movement.x, 0f, movement.y));
-        playerBody.transform.position = rb.position;
-        //здесь ещё нужно сменить анимацию, но я не знаю как это делается
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
+<<<<<<< HEAD
 
             gunAct = 1;
+=======
+            isDashCooldown = true;
+            rb.MovePosition(transform.position + movement * dashMultiplier); // рывок делается по направлению движения игрока
+            StartCoroutine(DashCooldown());
+>>>>>>> remotes/origin/dev
         }
 
-        if (gunAct == 1)
-        {
-            gunObjects[0].transform.position = new Vector3(rb.transform.position.x + 0.25f, rb.transform.position.y + 0.2f, rb.transform.position.z);
-        }
+        //playerBody.transform.position = rb.position;
+		//здесь ещё нужно сменить анимацию, но я не знаю как это делается
+
+        // смена оружия
+		if (Input.GetKeyDown(KeyCode.Alpha1))
+		{
+            gunAct = 0;
+		}
+
+        // передвижение оружия вместе с игроком
+        MoveWeapon(gunAct);
     }
+
+    void MoveWeapon(int index)
+	{
+        //Debug.Log(index);
+        gunObjects[index].transform.position = new Vector3(rb.transform.position.x + 0.25f, rb.transform.position.y + 0.2f, rb.transform.position.z);
+    }
+
+    IEnumerator DashCooldown()
+	{
+        yield return new WaitForSeconds(dashCooldown);
+        isDashCooldown = false;
+	}
 }
