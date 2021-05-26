@@ -440,6 +440,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 519420031}
     - target: {fileID: 5451581918547640302, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
+      propertyPath: dashMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5451581918547640302, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
       propertyPath: steps.Array.size
       value: 7
       objectReference: {fileID: 0}
