@@ -23,18 +23,18 @@ public class MovementScript : MonoBehaviour
     public AudioSource Step; // для воспроизведения звуков шагов
 
     public GameObject playerBody; // спрайт на герое
-<<<<<<< HEAD
-    public int gunAct = 1;
+//<<<<<<< HEAD
+    /*public int gunAct = 1;
     public GameObject[] gunObjects;
     private HashSet<GameObject> gunObj = new HashSet<GameObject>();
-    public AudioClip[] Steps;
-=======
+    public AudioClip[] Steps;*/
+//=======
     public int gunAct = 0; // текущее оружие
     public GameObject[] gunObjects; // массив оружий
     //private HashSet<GameObject> gunObj = new HashSet<GameObject>();
     public AudioSource step;
     public AudioClip[] steps;
->>>>>>> remotes/origin/dev
+    //>>>>>>> remotes/origin/dev
 
     void Start()
     {
@@ -68,8 +68,8 @@ public class MovementScript : MonoBehaviour
     void FixedUpdate()
     {
         // движение игрока
-<<<<<<< HEAD
-        rb.MovePosition(rb.position + movement * (speed + Mathf.Cos(Time.time * 5) / 2f) * Time.fixedDeltaTime);
+//<<<<<<< HEAD
+        /*rb.MovePosition(rb.position + movement * (speed + Mathf.Cos(Time.time * 5) / 2f) * Time.fixedDeltaTime);
         if (movement.x != 0 || movement.y != 0)
         {
             if (!Step.isPlaying) // если звук шага уже есть, новый не играется
@@ -78,11 +78,11 @@ public class MovementScript : MonoBehaviour
                 Step.Play();
             }
         }
-        else Step.Stop();
-=======
+        else Step.Stop();*/
+//=======
         //rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
         rb.velocity = movement * speed;
->>>>>>> remotes/origin/dev
+//>>>>>>> remotes/origin/dev
 
         if(movement.x != 0 || movement.y != 0)
         {
@@ -97,14 +97,14 @@ public class MovementScript : MonoBehaviour
         // рывок игрока
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashCooldown)
         {
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
-            gunAct = 1;
-=======
+            //gunAct = 1;
+//=======
             isDashCooldown = true;
             rb.MovePosition(transform.position + movement * dashMultiplier); // рывок делается по направлению движения игрока
             StartCoroutine(DashCooldown());
->>>>>>> remotes/origin/dev
+//>>>>>>> remotes/origin/dev
         }
 
         //playerBody.transform.position = rb.position;

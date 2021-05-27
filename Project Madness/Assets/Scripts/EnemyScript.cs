@@ -8,13 +8,14 @@ public class EnemyScript : MonoBehaviour
 {
     public Camera mainCamera;
     public float speed = 10f;
-    //public float damage = 20f; // дамаг
+    public float damage = 20f; // дамаг
+    public float speedAttack = 2.0f;
     //public float defence = 0.5f; // защита
 
     //Rigidbody2D rb; // ригидбоди, который отвечает за нахождение врагов в радиусе видимости
 
     public GameObject enemy;
-    public Transform player; // герой
+    public GameObject player; // герой
 
     //public float hp = 100f; // HP
     //public float strength = 0.5f; // def
@@ -23,6 +24,15 @@ public class EnemyScript : MonoBehaviour
     Transform target;
     Transform spawnPos;
     bool goHome = false;
+    bool attack = false;
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            attack = true;
+        }
+    }
 
     private void Start()
     {
@@ -42,6 +52,20 @@ public class EnemyScript : MonoBehaviour
             Destroy(enemy);*/
     }  
     
+    void FixedUpdate()
+    {
+        if (attack && Time.time % speedAttack == 0f)
+        {
+            player.GetComponent<Rigidbody2D>().AddForce((player.transform.position - transform.position) * 1000f);
+            player.GetComponent<HealthSystem>().TakeDamage(damage);
+            /*******************************
+            
+                АНИМАЦИИ УДАРА ВРАГОВ
+
+            ******************************/
+        }
+    }
+
     private void CheckDistance()
     {
         if (Vector3.Distance(target.position, transform.position) <= dist)
