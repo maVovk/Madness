@@ -129,13 +129,20 @@ MonoBehaviour:
   rb: {fileID: 5451581918547640303}
   dashMultiplier: 0.2
   angle: 0
-  Step: {fileID: 0}
   playerBody: {fileID: 5451581919917241924}
   gunAct: 1
   gunObjects:
   - {fileID: 5451581920569537293}
   step: {fileID: 0}
-  steps: []
+  steps:
+  - {fileID: 8300000, guid: 4b4cfcefbbd8f444c9f53a65ddc3f62e, type: 3}
+  - {fileID: 8300000, guid: 7a9713ab3b88280488a384c0d02c6c1f, type: 3}
+  - {fileID: 8300000, guid: 2c588eb3f3b3e2142b27eb4d41c2ede8, type: 3}
+  - {fileID: 8300000, guid: afb8e5ef6f86f3c42804fe5e920c2af2, type: 3}
+  - {fileID: 8300000, guid: 09e42e53507a669488bc17cad357be1b, type: 3}
+  - {fileID: 8300000, guid: 7ce6c84014aa6754cb6a112b9275270a, type: 3}
+  - {fileID: 8300000, guid: 96ad08eaccdec9845818d9eade3e7941, type: 3}
+  - {fileID: 8300000, guid: 0d325e7254c34e64fab9fa71abe6f472, type: 3}
 --- !u!114 &7197404256102230382
 MonoBehaviour:
   m_ObjectHideFlags: 0
