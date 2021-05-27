@@ -162,8 +162,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
   speed: 4
+  damage: 20
+  speedAttack: 1
   enemy: {fileID: 3394650160549115965}
-  player: {fileID: 5451581918547640300, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
+  player: {fileID: 5451581918547640298, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
   dist: 4
 --- !u!58 &5668665525843403138
 CircleCollider2D:
