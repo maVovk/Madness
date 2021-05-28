@@ -13,6 +13,7 @@ public class EnemyScript : MonoBehaviour
 
     //public GameObject enemy;
     GameObject player; // герой
+    public  Animator anim;
 
     public int dist;
     Transform target;
@@ -63,6 +64,11 @@ public class EnemyScript : MonoBehaviour
         if (target != null && Vector3.Distance(target.position, transform.position) <= dist)
         {
             transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            anim.SetBool("Walking", true);
+        }
+		else
+		{
+            anim.SetBool("Walking", false);
         }
     }
 
