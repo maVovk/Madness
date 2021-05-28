@@ -21,7 +21,7 @@ public class MovementScript : MonoBehaviour
 
     public float dashMultiplier = 100f; // множитель расстояния рывка
     public float angle; // угол поворота героя
-    public AudioSource Step; // для воспроизведения звуков шагов
+    //public AudioSource Step; // для воспроизведения звуков шагов
 
     public GameObject playerBody; // спрайт на герое
 //<<<<<<< HEAD
