@@ -52,14 +52,14 @@ public class EnemyScript : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, spawnPos.position, speed * Time.deltaTime);
         }
         CheckDistance();
-        time += Time.deltaTime;
+        time += Time.fixedDeltaTime;
         /*if (hp <= 0)
             Destroy(enemy);*/
     }  
     
     void FixedUpdate()
     {
-        if (player != null && attack && System.Math.Round(time, 1) % speedAttack == 0f)
+        if (player != null && attack && System.Math.Round(time, 1) >= speedAttack && !Input.GetKey(KeyCode.Space))
         {
             player.GetComponent<Rigidbody2D>().AddForce((player.transform.position - transform.position) * 1000f);
             player.GetComponent<HealthSystem>().TakeDamage(damage);
