@@ -13,20 +13,29 @@ public class MovementScript : MonoBehaviour
     public float slowedSpeed = 3.5f; // скорость при дебаффе
 
     public Rigidbody2D rb; // ригидбоди, который отвечает за перемещение игрока
-    
-    Vector3 movement; // вектор направления движения
+
+    Vector2 movement;
+    Vector3 dash; // вектор направления движения
     bool isDashCooldown = false;
     float dashCooldown = 5f; // время отката рывка
 
     public float dashMultiplier = 100f; // множитель расстояния рывка
     public float angle; // угол поворота героя
+    public AudioSource Step; // для воспроизведения звуков шагов
 
     public GameObject playerBody; // спрайт на герое
+//<<<<<<< HEAD
+    /*public int gunAct = 1;
+    public GameObject[] gunObjects;
+    private HashSet<GameObject> gunObj = new HashSet<GameObject>();
+    public AudioClip[] Steps;*/
+//=======
     public int gunAct = 0; // текущее оружие
     public GameObject[] gunObjects; // массив оружий
     //private HashSet<GameObject> gunObj = new HashSet<GameObject>();
     public AudioSource step;
     public AudioClip[] steps;
+    //>>>>>>> remotes/origin/dev
 
     void Start()
     {
@@ -37,6 +46,8 @@ public class MovementScript : MonoBehaviour
     {
         // управление на WASD и стрелки
         // определяем вектор, на который будем перемещаться
+        movement.x = Input.GetAxis("Horizontal");
+        movement.y = Input.GetAxis("Vertical");
         float x = 0f, y = 0f;
 		if (Input.GetAxis("Horizontal") > 0)
 		{
@@ -54,14 +65,26 @@ public class MovementScript : MonoBehaviour
             y = -1f;
 		}
 
-        movement = new Vector3(x, y).normalized;
+        dash = new Vector3(x, y).normalized;
     }
 
     void FixedUpdate()
     {
-        // движение игрока
-        //rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
-        rb.velocity = movement * speed;
+		// движение игрока
+        /*rb.MovePosition(rb.position + movement * (speed + Mathf.Cos(Time.time * 5) / 2f) * Time.fixedDeltaTime);
+        if (movement.x != 0 || movement.y != 0)
+        {
+	        if (!Step.isPlaying) // если звук шага уже есть, новый не играется
+	        {
+		        Step.clip = Steps[Random.Range(0, 7)]; // берем рандомный звук шага
+		        Step.Play();
+	        }
+        }
+        else Step.Stop();*/
+        
+        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+        //rb.velocity = movement * speed;
+//>>>>>>> remotes/origin/dev
 
         if(movement.x != 0 || movement.y != 0)
         {
@@ -76,9 +99,14 @@ public class MovementScript : MonoBehaviour
         // рывок игрока
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashCooldown)
         {
+//<<<<<<< HEAD
+
+            //gunAct = 1;
+//=======
             isDashCooldown = true;
-            rb.MovePosition(transform.position + movement * dashMultiplier); // рывок делается по направлению движения игрока
+            rb.MovePosition(transform.position + dash * dashMultiplier); // рывок делается по направлению движения игрока
             StartCoroutine(DashCooldown());
+//>>>>>>> remotes/origin/dev
         }
 
         //playerBody.transform.position = rb.position;

@@ -376,8 +376,7 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7197404256102230382, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
 --- !u!1001 &685963378
 PrefabInstance:
@@ -502,6 +501,14 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 5690419506032793251, guid: 5ad291d41f2f78b49a82eefcaf7a50da, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 518593322}
+    - target: {fileID: 5690419506032793251, guid: 5ad291d41f2f78b49a82eefcaf7a50da, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 6068839896991432885, guid: 5ad291d41f2f78b49a82eefcaf7a50da, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0

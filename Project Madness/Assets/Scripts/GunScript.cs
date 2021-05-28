@@ -37,7 +37,7 @@ public class GunScript : MonoBehaviour
                 {
                     if (!go.GetComponent<HealthSystem>().TakeDamage(damage))
                     {
-                        go.GetComponent<Rigidbody2D>().AddForce(transform.position - go.transform.position);
+                        go.GetComponent<Rigidbody2D>().AddForce((go.transform.position - transform.position) * 1000f);
 					}
 					else
 					{
