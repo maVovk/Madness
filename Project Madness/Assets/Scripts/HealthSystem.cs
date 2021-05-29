@@ -15,6 +15,9 @@ public class HealthSystem : MonoBehaviour
     float normalInputMultiplier = 1f; // стандартный множитель входящего урона
     float boostedInputMultiplier = 0.6f; // множитель входяшего урона при усилении
     float debuffedInputMultiplier = 1.2f; // множитель входяшего урона при ослаблении
+    public AudioClip[] Punches;
+    public AudioClip Death;
+    public AudioSource damage;
 
 
     private void Update()
@@ -25,6 +28,11 @@ public class HealthSystem : MonoBehaviour
 		}
 	}
 
+    public float getHP()
+    {
+        return health;
+    }
+
 	public bool TakeDamage(float dmg)
 	{
         health -= dmg * inputDamageMultiplier; // расчет входящего урона
@@ -33,6 +41,11 @@ public class HealthSystem : MonoBehaviour
         {
             Die();
             return true;
+        }
+        else
+        {
+                damage.clip = Punches[Random.Range(0, 5)];
+                damage.Play();
         }
 
         return false;
@@ -61,6 +74,8 @@ public class HealthSystem : MonoBehaviour
 	{
         if (gameObject.tag == "Player")
         {
+            damage.clip = Death;
+            damage.Play();
             /******************************************************
                 СЮДА МОЖНО ПОНАТЫКАТЬ АНИМАЦИЙ СМЕРТИ ДЛЯ ИГРОКА
             ******************************************************/
@@ -68,6 +83,8 @@ public class HealthSystem : MonoBehaviour
 
         if (gameObject.tag == "Enemy")
         {
+            damage.clip = Death;
+            damage.Play();
             /******************************************************
                             А СЮДА ДЛЯ ПРОТИВНИКА
                         ПРИЧЁМ РАЗНЫХ ДЛЯ РАЗНИХ ТИПОВ
@@ -75,7 +92,6 @@ public class HealthSystem : MonoBehaviour
             ******************************************************/
         }
 
-        // удаление объекта со сцены
         Destroy(gameObject);
-	}
+    }
 }
