@@ -68,7 +68,7 @@ public class HealthSystem : MonoBehaviour
 
         if (gameObject.tag == "Enemy")
         {
-            //Instantiate(Prefabs.Load("heal capsule")) as GameObject;
+            //Instantiate(healCapsPref, gameObject.trasform.position);
 
             /******************************************************
                             À ÑŞÄÀ ÄËß ÏĞÎÒÈÂÍÈÊÀ
