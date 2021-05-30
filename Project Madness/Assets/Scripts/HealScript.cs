@@ -8,7 +8,7 @@ public class HealScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        other.GetComponent<HealthSystem>().health += 50;
+        other.GetComponent<HealthSystem>().medicins++;
         Destroy(gameObject);
     }
 

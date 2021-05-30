@@ -7,6 +7,8 @@ public class HealthSystem : MonoBehaviour
     public float health = 100;
     public float inputDamageMultiplier = 1; // текущий множитель входящего урона
 
+    public int medicins = 5;
+
     /* ПАРАМЕТРЫ УСИЛЕНИЯ И ОСЛАБЛЕНИЯ */
     float extraHp = 20; // дополнительное количество здоровья при бусте
     float boostTime = 1.75f; // время усиления(в минутах)
@@ -22,10 +24,11 @@ public class HealthSystem : MonoBehaviour
 
     private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Alpha4))
+		if (Input.GetKeyDown(KeyCode.Alpha4) && medicins > 0)
 		{
             StartCoroutine(Boost(boostTime * 60, debuffTime * 60));
-		}
+            medicins--;
+        }
 	}
 
     public float getHP()
