@@ -8,17 +8,12 @@ public class EnemyScript : MonoBehaviour
 {
     public Camera mainCamera;
     public float speed = 10f;
-    public float damage = 34f; // дамаг
-    public float speedAttack = 0.5f;
-    //public float defence = 0.5f; // защита
+    public float damage = 20f; // дамаг
+    public float speedAttack = 2.0f;
 
-    //Rigidbody2D rb; // ригидбоди, который отвечает за нахождение врагов в радиусе видимости
-
-    public GameObject enemy;
-    public GameObject player; // герой
-
-    //public float hp = 100f; // HP
-    //public float strength = 0.5f; // def
+    //public GameObject enemy;
+    GameObject player; // герой
+    public  Animator anim;
 
     public int dist;
     Transform target;
@@ -42,7 +37,6 @@ public class EnemyScript : MonoBehaviour
         spawnPos = this.transform;
         target = GameObject.FindWithTag("Player").transform;
         player = GameObject.FindGameObjectWithTag("Player");
-        //rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -74,9 +68,14 @@ public class EnemyScript : MonoBehaviour
 
     private void CheckDistance()
     {
-        if (target != null && Vector3.Distance(target.position, transform.position) <= dist && !attack)
+        if (target != null && Vector3.Distance(target.position, transform.position) <= dist)
         {
             transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            anim.SetBool("Walking", true);
+        }
+		else
+		{
+            anim.SetBool("Walking", false);
         }
     }
 

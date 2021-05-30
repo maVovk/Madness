@@ -21,21 +21,14 @@ public class MovementScript : MonoBehaviour
 
     public float dashMultiplier = 100f; // множитель расстояния рывка
     public float angle; // угол поворота героя
-    //public AudioSource Step; // для воспроизведения звуков шагов
+    public AudioSource Step; // для воспроизведения звуков шагов
 
     public GameObject playerBody; // спрайт на герое
-//<<<<<<< HEAD
-    /*public int gunAct = 1;
-    public GameObject[] gunObjects;
-    private HashSet<GameObject> gunObj = new HashSet<GameObject>();
-    public AudioClip[] Steps;*/
-//=======
     public int gunAct = 0; // текущее оружие
     public GameObject[] gunObjects; // массив оружий
     //private HashSet<GameObject> gunObj = new HashSet<GameObject>();
     public AudioSource step;
     public AudioClip[] steps;
-    //>>>>>>> remotes/origin/dev
 
     void Start()
     {
@@ -84,7 +77,6 @@ public class MovementScript : MonoBehaviour
         
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
         //rb.velocity = movement * speed;
-//>>>>>>> remotes/origin/dev
 
         if(movement.x != 0 || movement.y != 0)
         {
@@ -99,14 +91,9 @@ public class MovementScript : MonoBehaviour
         // рывок игрока
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashCooldown)
         {
-//<<<<<<< HEAD
-
-            //gunAct = 1;
-//=======
             isDashCooldown = true;
             rb.MovePosition(transform.position + dash * dashMultiplier); // рывок делается по направлению движения игрока
             StartCoroutine(DashCooldown());
-//>>>>>>> remotes/origin/dev
         }
 
         //playerBody.transform.position = rb.position;
