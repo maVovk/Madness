@@ -6,12 +6,13 @@ public class GunScript : MonoBehaviour
 {
     //public Camera mainCamera;
     public int num;
-    //public float speed = 10f; // скорость оружия
+    public float speed = 10f; // скорость оружия
     public float damage = 20f; // дамаг
     public Rigidbody2D rb; // ригидбоди, который отвечает за нахождение врагов в радиусе видимости
     public GameObject player; // герой
     public float strength = 20f; // прочность
     private HashSet<GameObject> afBodies = new HashSet<GameObject>();
+    float time = 0f;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -28,11 +29,16 @@ public class GunScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        time += Time.fixedDeltaTime;
+    }
+
+    void FixedUpdate()
+    {
         if (player.GetComponent<MovementScript>().gunAct == 0)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) /*&& time >= System.Math.Round(1/speed, 1)*/ && !Input.GetKey(KeyCode.Space))
             {
-                //Debug.Log(afBodies.Count);
+                Debug.Log(afBodies.Count);
                 foreach (GameObject go in afBodies)
                 {
                     if (!go.GetComponent<HealthSystem>().TakeDamage(damage))
@@ -43,12 +49,15 @@ public class GunScript : MonoBehaviour
 					{
                         afBodies.Remove(go);
 					}
-
-                    /*float ehp = go.GetComponent<EnemyScript>().hp;
-                    ehp -= damage * go.GetComponent<EnemyScript>().defence;
-                    go.GetComponent<EnemyScript>().hp = ehp;
-                    prochnost -= ehp;*/
                 }
+
+                time = 0;
+
+                /***************************
+
+                   АНИМАЦИИ УДАРОВ ИГРОКА
+
+                ****************************/
             }
         }
     }
