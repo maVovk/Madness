@@ -61,6 +61,7 @@ public class MovementScript : MonoBehaviour
             y = -1f;
         }
 
+        // изменени€ спрайта в зависимости от направлени€ ходьбы
         if(x == 1f)
 		{
             if (y == 1f)
@@ -69,11 +70,11 @@ public class MovementScript : MonoBehaviour
             }
             else if (y == -1f)
             {
-                transform.rotation = Quaternion.Euler(0, 0, 45);
+                transform.rotation = Quaternion.Euler(0, 0, -135);
             }
             else
             {
-                transform.rotation = Quaternion.Euler(0, 0, 90);
+                transform.rotation = Quaternion.Euler(0, 0, -90);
             }
 		}
         else if (x == -1f)
@@ -84,11 +85,11 @@ public class MovementScript : MonoBehaviour
             }
             else if (y == -1f)
             {
-                transform.rotation = Quaternion.Euler(0, 0, -45);
+                transform.rotation = Quaternion.Euler(0, 0, 135);
             }
             else
             {
-                transform.rotation = Quaternion.Euler(0, 0, -90);
+                transform.rotation = Quaternion.Euler(0, 0, 90);
             }
         }
 		else
@@ -142,14 +143,6 @@ public class MovementScript : MonoBehaviour
 		{
             gunAct = 0;
 		}
-
-        // передвижение оружи€ вместе с игроком
-        MoveWeapon(gunAct);
-    }
-
-    void MoveWeapon(int index)
-	{
-        gunObjects[index].transform.position = new Vector3(transform.position.x + 0.06f, transform.position.y + 0.2f, transform.position.z);// * speed * Time.deltaTime;
     }
 
     IEnumerator DashCooldown()
