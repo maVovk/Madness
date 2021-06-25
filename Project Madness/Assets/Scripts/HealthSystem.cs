@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class HealthSystem : MonoBehaviour
     public float inputDamageMultiplier = 1; // òåêóùèé ìíîæèòåëü âõîäÿùåãî óðîíà
 
     public int medicins = 5;
+    public GameObject cam;
 
     /* ÏÀÐÀÌÅÒÐÛ ÓÑÈËÅÍÈß È ÎÑËÀÁËÅÍÈß */
     bool possibleToBoost = true;
@@ -29,7 +31,6 @@ public class HealthSystem : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Alpha4) && medicins > 0 && possibleToBoost)
 		{
             StartCoroutine(Boost(boostTime * 60, debuffTime * 60));
-            //StartCoroutine(Cooldown(cooldownTime));
             medicins--;
         }
 	}
@@ -60,14 +61,17 @@ public class HealthSystem : MonoBehaviour
     IEnumerator Boost(float boost, float debuff)
 	{
         possibleToBoost = false;
+        PostProcessVolume[] vols = cam.GetComponents<PostProcessVolume>();
         MovementScript ms = gameObject.GetComponent<MovementScript>();
 
+        vols[1].enabled = true;
         inputDamageMultiplier = boostedInputMultiplier;
         health += extraHp;
         ms.speed = ms.boostedSpeed;
 
         yield return new WaitForSeconds(boost);
 
+        vols[1].enabled = false;
         inputDamageMultiplier = debuffedInputMultiplier;
         ms.speed = ms.slowedSpeed;
 
