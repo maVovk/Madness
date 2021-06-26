@@ -31,8 +31,11 @@ public class MovementScript : MonoBehaviour
     public AudioSource step;
     public AudioClip[] steps;
 
+    private Animator anim;
+
     void Start()
     {
+        anim = gameObject.GetComponent<Animator>();
         //gunObjects[0] = (GameObject.FindGameObjectWithTag("gun"));
     }
 
@@ -46,35 +49,70 @@ public class MovementScript : MonoBehaviour
 		if (Input.GetAxis("Horizontal") > 0)
 		{
             x = 1f;
-		} else if(Input.GetAxis("Horizontal") < 0)
+        } else if(Input.GetAxis("Horizontal") < 0)
 		{
             x = -1f;
-		}
+        }
 
 		if (Input.GetAxis("Vertical") > 0)
 		{
             y = 1f;
-		} else if(Input.GetAxis("Vertical") < 0)
+        } else if(Input.GetAxis("Vertical") < 0)
 		{
             y = -1f;
-		}
+        }
 
+        // изменения спрайта в зависимости от направления ходьбы
+        if(x == 1f)
+		{
+            if (y == 1f)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, -45);
+            }
+            else if (y == -1f)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, -135);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 0, -90);
+            }
+		}
+        else if (x == -1f)
+        {
+            if (y == 1f)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 45);
+            }
+            else if (y == -1f)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 135);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 90);
+            }
+        }
+		else
+		{
+            if (y == 1f)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            if (y == -1f)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 180);
+                
+            }
+        }
+
+        mainCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
         dash = new Vector3(x, y).normalized;
     }
 
     void FixedUpdate()
     {
 		// движение игрока
-        /*rb.MovePosition(rb.position + movement * (speed + Mathf.Cos(Time.time * 5) / 2f) * Time.fixedDeltaTime);
-        if (movement.x != 0 || movement.y != 0)
-        {
-	        if (!Step.isPlaying) // если звук шага уже есть, новый не играется
-	        {
-		        Step.clip = Steps[Random.Range(0, 7)]; // берем рандомный звук шага
-		        Step.Play();
-	        }
-        }
-        else Step.Stop();*/
         
         if (!Input.GetKey(KeyCode.Space))
             rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
@@ -84,13 +122,18 @@ public class MovementScript : MonoBehaviour
 
         if (movement.x != 0 || movement.y != 0)
         {
+            anim.SetBool("Walking", true);
             if (!step.isPlaying)
             {
                 step.clip = steps[Random.Range(0, 7)];
                 step.Play();
             }
         }
-        else step.Stop();
+        else
+        {
+            anim.SetBool("Walking", false);
+            step.Stop();
+        }
 
         // рывок игрока
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashCooldown)
@@ -100,23 +143,11 @@ public class MovementScript : MonoBehaviour
             StartCoroutine(DashCooldown());
         }
 
-        //playerBody.transform.position = rb.position;
-		//здесь ещё нужно сменить анимацию, но я не знаю как это делается
-
         // смена оружия
 		if (Input.GetKeyDown(KeyCode.Alpha1))
 		{
             gunAct = 0;
 		}
-
-        // передвижение оружия вместе с игроком
-        MoveWeapon(gunAct);
-    }
-
-    void MoveWeapon(int index)
-	{
-        //Debug.Log(index);
-        gunObjects[index].transform.position = new Vector3(rb.transform.position.x + 0.25f, rb.transform.position.y + 0.2f, rb.transform.position.z);
     }
 
     IEnumerator DashCooldown()

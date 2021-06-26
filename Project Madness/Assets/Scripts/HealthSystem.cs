@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -8,8 +9,12 @@ public class HealthSystem : MonoBehaviour
     public float inputDamageMultiplier = 1; // текущий множитель входящего урона
 
     public int medicins = 5;
+    public GameObject medPref;
+    public GameObject cam;
 
     /* ПАРАМЕТРЫ УСИЛЕНИЯ И ОСЛАБЛЕНИЯ */
+    bool possibleToBoost = true;
+    float cooldownTime = 5; // время отката усидения(в секундах)
     float extraHp = 20; // дополнительное количество здоровья при бусте
     float boostTime = 1.75f; // время усиления(в минутах)
     float debuffTime = 3f; // время отходняка(в минутах)
@@ -24,7 +29,7 @@ public class HealthSystem : MonoBehaviour
 
     private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Alpha4) && medicins > 0)
+		if (Input.GetKeyDown(KeyCode.Alpha4) && medicins > 0 && possibleToBoost)
 		{
             StartCoroutine(Boost(boostTime * 60, debuffTime * 60));
             medicins--;
@@ -56,14 +61,18 @@ public class HealthSystem : MonoBehaviour
 
     IEnumerator Boost(float boost, float debuff)
 	{
+        possibleToBoost = false;
+        PostProcessVolume[] vols = cam.GetComponents<PostProcessVolume>();
         MovementScript ms = gameObject.GetComponent<MovementScript>();
 
+        vols[1].enabled = true;
         inputDamageMultiplier = boostedInputMultiplier;
         health += extraHp;
         ms.speed = ms.boostedSpeed;
 
         yield return new WaitForSeconds(boost);
 
+        vols[1].enabled = false;
         inputDamageMultiplier = debuffedInputMultiplier;
         ms.speed = ms.slowedSpeed;
 
@@ -71,6 +80,7 @@ public class HealthSystem : MonoBehaviour
 
         inputDamageMultiplier = normalInputMultiplier;
         ms.speed = ms.normalSpeed;
+        possibleToBoost = true;
     }
 
     void Die()
@@ -86,7 +96,9 @@ public class HealthSystem : MonoBehaviour
 
         if (gameObject.tag == "Enemy")
         {
-            //Instantiate(healCapsPref, gameObject.trasform.position);
+            if (Random.Range(0, 2) == 0)
+                for (int i = 0; i < Random.Range(0, 2); i++)
+                    Instantiate(medPref, gameObject.trasform.position);
 
             damage.clip = Death;
             damage.Play();
