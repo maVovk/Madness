@@ -6,8 +6,11 @@ public class GunScript : MonoBehaviour
 {
     //public Camera mainCamera;
     public int num;
-    public float speed = 10f; // скорость оружия
+    public float speed = 5f; // скорость оружия
+    public float superSpeed = 1f; // скорость оружия при сильном ударе
+    public float extraSpeed = 5f; // скорость оружия при особенном ударе
     public float damage = 20f; // дамаг
+    public float superDamage = 50f; // дамаг при сильном ударе
     public Rigidbody2D rb; // ригидбоди, который отвечает за нахождение врагов в радиусе видимости
     public GameObject player; // герой
     public float strength = 20f; // прочность
@@ -58,11 +61,56 @@ public class GunScript : MonoBehaviour
 
                 time = 0;
 
-                /***************************
+                /***********************************
 
-                   АНИМАЦИИ УДАРОВ ИГРОКА
+                   АНИМАЦИИ ПРОСТЫХ УДАРОВ ИГРОКА
 
-                ****************************/
+                ************************************/
+            }
+            else if (Input.GetMouseButtonDown(1) && time >= System.Math.Round(1 / superSpeed, 1) && !Input.GetKey(KeyCode.Space))
+            {
+                foreach (GameObject go in afBodies)
+                {
+                    if (!go.GetComponent<HealthSystem>().TakeDamage(superDamage))
+                    {
+                        go.GetComponent<Rigidbody2D>().AddForce((go.transform.position - transform.position) * 3000f);
+                    }
+                    else
+                    {
+                        afBodies.Remove(go);
+                    }
+                }
+
+            time = 0;
+
+            /************************************
+
+               АНИМАЦИИ СИЛЬНЫХ УДАРОВ ИГРОКА
+
+            *************************************/
+            }
+            else if (Input.GetKey(KeyCode.F) && time >= System.Math.Round(1 / extraSpeed, 1) && !Input.GetKey(KeyCode.Space))
+            {
+                foreach (GameObject go in afBodies)
+                {
+                    if (!go.GetComponent<HealthSystem>().TakeDamage(0))
+                    {
+                        go.GetComponent<EnemyScript>().freez = true;
+                        go.GetComponent<EnemyScript>().freezTime = 4f;
+                    }
+                    else
+                    {
+                        afBodies.Remove(go);
+                    }
+                }
+
+                time = 0;
+
+                /************************************
+
+                   АНИМАЦИИ ОСОБЕННЫХ УДАРОВ ИГРОКА
+
+                *************************************/
             }
         }
     }

@@ -124,6 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   inputDamageMultiplier: 1
+  medicins: 5
   Punches:
   - {fileID: 8300000, guid: 78baa459ef5fffa4a85c877566e49681, type: 3}
   - {fileID: 8300000, guid: 16fad16dcf1557b41a29e1223e93322d, type: 3}

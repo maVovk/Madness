@@ -125,6 +125,7 @@ MonoBehaviour:
   normalSpeed: 6
   boostedSpeed: 7
   slowedSpeed: 3.5
+  blockedSpeed: 4
   rb: {fileID: 5451581918547640303}
   dashMultiplier: 0.2
   angle: 0
@@ -418,7 +419,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   num: 0
+  speed: 5
+  superSpeed: 1
   damage: 20
+  superDamage: 40
   rb: {fileID: 5451581920569537280}
   player: {fileID: 5451581918547640298}
   strength: 20
@@ -437,7 +441,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -2.34, y: -0.31}
   serializedVersion: 2
-  m_Radius: 2.01
+  m_Radius: 2.5
 --- !u!50 &5451581920569537280
 Rigidbody2D:
   serializedVersion: 4

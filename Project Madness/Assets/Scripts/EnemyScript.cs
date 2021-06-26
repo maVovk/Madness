@@ -20,6 +20,8 @@ public class EnemyScript : MonoBehaviour
     Transform spawnPos;
     bool goHome = false;
     bool attack = false;
+    public bool freez = false;
+    public float freezTime = 0f;
     float time = 0f;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -47,6 +49,8 @@ public class EnemyScript : MonoBehaviour
         }
         CheckDistance();
         time += Time.fixedDeltaTime;
+        if (freez)
+            freezTime -= Time.fixedDeltaTime;
         /*if (hp <= 0)
             Destroy(enemy);*/
     }  
@@ -64,11 +68,15 @@ public class EnemyScript : MonoBehaviour
 
             ******************************/
         }
+        if (freez)
+            attack = false;
+        if (freezTime <= 0)
+            freez = false;
     }
 
     private void CheckDistance()
     {
-        if (target != null && Vector3.Distance(target.position, transform.position) <= dist)
+        if (target != null && Vector3.Distance(target.position, transform.position) <= dist && !freez)
         {
             transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
             anim.SetBool("Walking", true);

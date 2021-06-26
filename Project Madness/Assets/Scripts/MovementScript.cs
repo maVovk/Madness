@@ -11,6 +11,7 @@ public class MovementScript : MonoBehaviour
     public float normalSpeed = 6f; // обычная скорость
     public float boostedSpeed = 7f; // скорость при бусте
     public float slowedSpeed = 3.5f; // скорость при дебаффе
+    public float blockedSpeed = 4f; // скорость при блокировке
 
     public Rigidbody2D rb; // ригидбоди, который отвечает за перемещение игрока
 
@@ -75,10 +76,13 @@ public class MovementScript : MonoBehaviour
         }
         else Step.Stop();*/
         
-        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+        if (!Input.GetKey(KeyCode.Space))
+            rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+        else
+            rb.MovePosition(rb.position + movement * blockedSpeed * Time.fixedDeltaTime);
         //rb.velocity = movement * speed;
 
-        if(movement.x != 0 || movement.y != 0)
+        if (movement.x != 0 || movement.y != 0)
         {
             if (!step.isPlaying)
             {
