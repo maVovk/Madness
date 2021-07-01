@@ -264,6 +264,7 @@ MonoBehaviour:
   health: 100
   inputDamageMultiplier: 1
   medicins: 5
+  medPref: {fileID: 0}
   cam: {fileID: 519420028}
   Punches:
   - {fileID: 8300000, guid: 78baa459ef5fffa4a85c877566e49681, type: 3}
@@ -604,7 +605,7 @@ PrefabInstance:
       objectReference: {fileID: 518593325}
     - target: {fileID: 5451581918547640302, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
       propertyPath: gunAct
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5451581918547640302, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
       propertyPath: mainCamera
@@ -651,7 +652,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 0d325e7254c34e64fab9fa71abe6f472, type: 3}
     - target: {fileID: 5451581918547640302, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
+      propertyPath: gunObjects.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5451581918547640302, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
       propertyPath: gunObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5451581918547640302, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
+      propertyPath: gunObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 3739096306517341703, guid: cc0ed53429ec1324fb23b76226b5d04d, type: 3}
+    - target: {fileID: 5451581918547640302, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
+      propertyPath: gunObjects.Array.data[2]
       value: 
       objectReference: {fileID: 1988149424}
     - target: {fileID: 5451581919917241924, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}
@@ -1238,7 +1251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   txt: {fileID: 1867051605}
   player: {fileID: 518593322}
-  HP: 0
+  num: 0
 --- !u!1 &1988149424 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2919313853634082486, guid: 3ea91254a20e28341b54a55173f21b13, type: 3}

@@ -98,7 +98,7 @@ public class HealthSystem : MonoBehaviour
         {
             if (Random.Range(0, 2) == 0)
                 for (int i = 0; i < Random.Range(0, 2); i++)
-                    Instantiate(medPref, gameObject.trasform.position);
+                    Instantiate(medPref);
 
             damage.clip = Death;
             damage.Play();

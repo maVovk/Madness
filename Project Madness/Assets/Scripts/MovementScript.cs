@@ -25,7 +25,7 @@ public class MovementScript : MonoBehaviour
     public AudioSource Step; // для воспроизведения звуков шагов
 
     public GameObject playerBody; // спрайт на герое
-    public int gunAct = 0; // текущее оружие
+    public int gunAct = 2; // текущее оружие
     public GameObject[] gunObjects; // массив оружий
     //private HashSet<GameObject> gunObj = new HashSet<GameObject>();
     public AudioSource step;
@@ -144,10 +144,20 @@ public class MovementScript : MonoBehaviour
         }
 
         // смена оружия
-		if (Input.GetKeyDown(KeyCode.Alpha1))
-		{
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
             gunAct = 0;
-		}
+        }
+        else if ((Input.GetKeyDown(KeyCode.Alpha1)) && (gunAct != 1))
+        {
+            gunAct = 1;
+            Instantiate(gunObjects[1]).transform.SetParent(gameObject.transform);
+        }
+        else if ((Input.GetKeyDown(KeyCode.Alpha2)) && (gunAct != 2))
+        {
+            gunAct = 2;
+            Instantiate(gunObjects[2]).transform.SetParent(gameObject.transform);
+        }
     }
 
     IEnumerator DashCooldown()
